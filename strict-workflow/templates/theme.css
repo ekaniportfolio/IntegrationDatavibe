@@ -1,0 +1,59 @@
+/**
+ * STRICT WORKFLOW: THEME.CSS TEMPLATE
+ * 
+ * Ce fichier est le pont entre Figma et Tailwind.
+ * Il doit être généré ou mis à jour à chaque sync Figma.
+ */
+
+:root {
+  /* 1. PRIMITIVES */
+  --color-neutral-0: #FFFFFF;
+  --color-neutral-900: #0F0E17;
+  --color-neutral-950: #050505;
+  --color-neutral-50: #F9FAFB;
+
+  /* 2. SEMANTIC TOKENS (Base values) */
+  --surface-base: var(--color-neutral-0);
+  --text-primary: var(--color-neutral-900);
+  
+  /* 3. BRAND SPECIFIC (Base values) */
+  --logo-primary: var(--color-neutral-900);
+  --logo-accent: #4F39F6;
+}
+
+/* 4. MODES (Light/Dark overrides) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface-base: var(--color-neutral-950);
+    --text-primary: var(--color-neutral-50);
+    --logo-primary: var(--color-neutral-0);
+    --logo-accent: #818CF8;
+  }
+}
+
+@theme {
+  --background: var(--surface-base);
+  --foreground: var(--text-primary);
+  
+  --color-logo-primary: var(--logo-primary);
+  --color-logo-accent: var(--logo-accent);
+}
+
+/* 5. TYPOGRAPHY (Responsive via Utility Classes) */
+.text-logo-default {
+  font-family: 'Datavibe', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+}
+
+@media (min-width: 768px) {
+  .text-logo-default { font-size: 36px; }
+}
+
+@media (min-width: 1024px) {
+  .text-logo-default { font-size: 48px; }
+}
+
+/* 6. UTILITIES (The "Strict" Layer) */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

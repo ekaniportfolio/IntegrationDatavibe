@@ -1,0 +1,141 @@
+# SPATIAL FLOW -- Cross-Platform Physics Parity CI
+# ===================================================
+# Ensures Soul Constants, speed scaling, and reduced motion
+# behavior are IDENTICAL across Web, React Native, and Flutter.
+#
+# Triggers on any change to soul-constants, speed, scaling,
+# or test files in any of the three packages.
+
+name: Physics Parity
+
+on:
+  push:
+    paths:
+      - "spatial-flow/src/core/soul-constants.ts"
+      - "spatial-flow/src/core/spatial-speed.ts"
+      - "spatial-flow/src/core/scale-transition.ts"
+      - "spatial-flow/src/core/reduced-motion.ts"
+      - "spatial-flow/tests/**"
+      - "spatial-flow-react-native/src/core/**"
+      - "spatial-flow-react-native/tests/**"
+      - "spatial-flow-flutter/lib/src/core/**"
+      - "spatial-flow-flutter/test/**"
+      - ".github/workflows/physics-parity.yml"
+  pull_request:
+    paths:
+      - "spatial-flow/src/core/**"
+      - "spatial-flow-react-native/src/core/**"
+      - "spatial-flow-flutter/lib/src/core/**"
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 1: Web (@spatial-flow/core) -- TypeScript tests
+  # ═══════════════════════════════════════════════════════════════════════════
+  web-parity:
+    name: "Web -- Physics Parity"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install dependencies
+        working-directory: spatial-flow
+        run: pnpm install --frozen-lockfile
+
+      - name: Run physics parity tests
+        working-directory: spatial-flow
+        run: pnpm vitest run tests/physics-parity.test.ts --reporter=verbose
+
+      - name: Typecheck
+        working-directory: spatial-flow
+        run: pnpm tsc --noEmit
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 2: React Native (@spatial-flow/react-native) -- TypeScript tests
+  # ═══════════════════════════════════════════════════════════════════════════
+  react-native-parity:
+    name: "React Native -- Physics Parity"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install dependencies
+        working-directory: spatial-flow-react-native
+        run: pnpm install --frozen-lockfile
+
+      - name: Run physics parity tests
+        working-directory: spatial-flow-react-native
+        run: pnpm vitest run tests/physics-parity.test.ts --reporter=verbose
+
+      - name: Typecheck
+        working-directory: spatial-flow-react-native
+        run: pnpm tsc --noEmit
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 3: Flutter (spatial_flow) -- Dart tests
+  # ═══════════════════════════════════════════════════════════════════════════
+  flutter-parity:
+    name: "Flutter -- Physics Parity"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.22.0"
+          channel: "stable"
+
+      - name: Install dependencies
+        working-directory: spatial-flow-flutter
+        run: flutter pub get
+
+      - name: Run physics parity tests
+        working-directory: spatial-flow-flutter
+        run: flutter test test/physics_parity_test.dart --reporter=expanded
+
+      - name: Analyze
+        working-directory: spatial-flow-flutter
+        run: flutter analyze --no-fatal-infos
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 4: Cross-Platform Parity Gate
+  # ═══════════════════════════════════════════════════════════════════════════
+  parity-gate:
+    name: "Parity Gate"
+    needs: [web-parity, react-native-parity, flutter-parity]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: All platforms passed
+        run: |
+          echo "╔══════════════════════════════════════════════════════════╗"
+          echo "║  SPATIAL FLOW -- Cross-Platform Physics Parity: PASS   ║"
+          echo "║                                                        ║"
+          echo "║  ✓ Web (@spatial-flow/core)                            ║"
+          echo "║  ✓ React Native (@spatial-flow/react-native)           ║"
+          echo "║  ✓ Flutter (spatial_flow)                              ║"
+          echo "║                                                        ║"
+          echo "║  Soul Constants are IDENTICAL across all platforms.     ║"
+          echo "║  Speed scaling formulas produce IDENTICAL results.     ║"
+          echo "║  Reduced motion behavior is CONSISTENT.                ║"
+          echo "╚══════════════════════════════════════════════════════════╝"

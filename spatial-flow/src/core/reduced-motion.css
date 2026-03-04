@@ -1,0 +1,68 @@
+/*
+ * SPATIAL FLOW FRAMEWORK -- Reduced Motion CSS
+ * ===============================================
+ * WCAG 2.1 SC 2.3.3 (AAA) Compliance Layer
+ *
+ * This CSS provides a blanket safety net for users who enable
+ * "Reduce motion" in their OS settings. Import alongside viewport-lock.css.
+ *
+ * Three-tier approach:
+ * 1. CSS-level: This file kills transitions/animations at the stylesheet level
+ * 2. JS-level: useReducedMotion() hook for conditional logic in React
+ * 3. Core-level: safeTransition() / safeSpring() wrappers in motion props
+ *
+ * IMPORTANT: Opacity-only transitions are preserved (they are WCAG-safe).
+ *
+ * @import "@spatial-flow/core/reduced-motion.css";
+ *
+ * @author Michel EKANI
+ */
+
+@media (prefers-reduced-motion: reduce) {
+  /* === Kill all CSS animations & transitions === */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* === Preserve opacity fades (WCAG-safe) === */
+  /* Elements with this class will still fade, just faster */
+  .sf-allow-opacity {
+    transition-property: opacity !important;
+    transition-duration: 150ms !important;
+  }
+
+  /* === Spatial Flow specific overrides === */
+
+  /* KineticItem: no lateral slide, just appear */
+  [data-sf-kinetic] {
+    transform: none !important;
+    filter: none !important;
+  }
+
+  /* CascadeList: no staggered entry, all items visible immediately */
+  [data-sf-cascade] > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* ChrysalisContainer: instant height, no weaving */
+  [data-sf-chrysalis] {
+    transition: none !important;
+  }
+
+  /* Follow Flow: no slide, instant swap */
+  [data-sf-follow-flow] {
+    transform: none !important;
+    filter: none !important;
+  }
+
+  /* Infinite animations: completely stopped */
+  [data-sf-infinite] {
+    animation: none !important;
+  }
+}

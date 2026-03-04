@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head><title>DataVibe Favicon PNG Generator</title></head>
+<body>
+<h2>DataVibe Favicon PNG Generator</h2>
+<p>Open this file in a browser, right-click the images below and "Save image as..." to create PNG favicons.</p>
+
+<h3>32x32</h3>
+<canvas id="c32" width="32" height="32"></canvas>
+<br><a id="dl32" download="favicon-32x32.png">Download 32x32</a>
+
+<h3>16x16</h3>
+<canvas id="c16" width="16" height="16"></canvas>
+<br><a id="dl16" download="favicon-16x16.png">Download 16x16</a>
+
+<h3>180x180 (Apple Touch Icon)</h3>
+<canvas id="c180" width="180" height="180"></canvas>
+<br><a id="dl180" download="apple-touch-icon.png">Download 180x180</a>
+
+<script>
+function drawFavicon(canvas) {
+    const ctx = canvas.getContext('2d');
+    const s = canvas.width;
+    const r = s * 0.1875; // corner radius ratio
+
+    // Background rounded rect
+    const gBg = ctx.createLinearGradient(0, 0, s, s);
+    gBg.addColorStop(0, '#0F0E17');
+    gBg.addColorStop(1, '#140432');
+    
+    ctx.beginPath();
+    ctx.moveTo(r, 0);
+    ctx.lineTo(s - r, 0);
+    ctx.quadraticCurveTo(s, 0, s, r);
+    ctx.lineTo(s, s - r);
+    ctx.quadraticCurveTo(s, s, s - r, s);
+    ctx.lineTo(r, s);
+    ctx.quadraticCurveTo(0, s, 0, s - r);
+    ctx.lineTo(0, r);
+    ctx.quadraticCurveTo(0, 0, r, 0);
+    ctx.closePath();
+    ctx.fillStyle = gBg;
+    ctx.fill();
+
+    // V letterform
+    const gV = ctx.createLinearGradient(0, 0, s, s);
+    gV.addColorStop(0, '#818CF8');
+    gV.addColorStop(0.5, '#6366F1');
+    gV.addColorStop(1, '#4F39F6');
+
+    // Normalized coords (from 512 viewBox)
+    const scale = s / 512;
+    const vPath = [
+        [128, 108], [198, 108], [256, 340], [314, 108], [384, 108], [286, 404], [226, 404]
+    ];
+
+    ctx.beginPath();
+    ctx.moveTo(vPath[0][0] * scale, vPath[0][1] * scale);
+    for (let i = 1; i < vPath.length; i++) {
+        ctx.lineTo(vPath[i][0] * scale, vPath[i][1] * scale);
+    }
+    ctx.closePath();
+    ctx.fillStyle = gV;
+    ctx.fill();
+}
+
+['c32', 'c16', 'c180'].forEach(id => {
+    const canvas = document.getElementById(id);
+    drawFavicon(canvas);
+    const size = id.replace('c', '');
+    const link = document.getElementById('dl' + size);
+    link.href = canvas.toDataURL('image/png');
+});
+</script>
+</body>
+</html>

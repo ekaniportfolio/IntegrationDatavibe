@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Michroma&family=Orbitron:wght@700&family=Noto+Sans:wght@700&display=swap');
+
+/* Branding Font - Datavibe */
+@font-face {
+  font-family: 'Datavibe';
+  src: url('/fonts/Datavibe-Bold.woff2') format('woff2'),
+       url('/fonts/Datavibe-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}

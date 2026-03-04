@@ -1,0 +1,44 @@
+import { Meta, Typeset } from '@storybook/blocks';
+
+<Meta title="Design System/Typography" />
+
+# Typography
+
+DataVibe typography system is designed to be responsive and accessible. It is strictly synchronized with Figma Variables.
+
+## Branding Font
+**Font:** Datavibe (Custom)
+**Weights:** Bold (700)
+
+<div className="sb-unstyled">
+  <div className="mb-8">
+    <span className="text-sm text-gray-500 block mb-2">Logo/Default (Responsive: 28px -> 36px -> 48px)</span>
+    <h1 className="text-logo-default text-primary">DataVibe</h1>
+  </div>
+
+  <div className="mb-8">
+    <span className="text-sm text-gray-500 block mb-2">Logo/Splash (Responsive: 48px -> 64px -> 80px)</span>
+    <h1 className="text-logo-splash text-primary">DataVibe</h1>
+  </div>
+</div>
+
+## Product Font
+**Font:** Manrope (Google Fonts)
+**Weights:** Regular (400), Medium (500), SemiBold (600), Bold (700)
+
+<Typeset
+  fontSizes={[
+    Number(12),
+    Number(14),
+    Number(16),
+    Number(18),
+    Number(20),
+    Number(24),
+    Number(30),
+    Number(36),
+    Number(48),
+  ]}
+  fontWeight={700}
+  sampleText="DataVibe Analytics"
+  fontFamily="Manrope, sans-serif"
+/>

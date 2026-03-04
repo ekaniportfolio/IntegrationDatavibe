@@ -1,0 +1,19 @@
+name: spatial_flow
+description: >
+  Spatial Flow for Flutter — A post-flat animation architecture where every
+  transition encodes spatial direction. Physics-based, accessible, speed-controllable.
+version: 3.1.0
+homepage: https://github.com/spatial-flow/spatial-flow-flutter
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0

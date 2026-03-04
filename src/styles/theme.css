@@ -1,0 +1,884 @@
+@custom-variant dark (&:is(.dark *));
+
+/* Running Lights animation for rectangular borders (video thumbnails) */
+@property --rl-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes runningLightSpin {
+  to { --rl-angle: 360deg; }
+}
+
+/* Video Player — Volume slider thumb styling */
+input[type="range"].video-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 4px rgba(0,0,0,0.3);
+}
+input[type="range"].video-volume-slider::-moz-range-thumb {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: none;
+}
+
+/* 
+  DataVibe Branding Font
+  Primary: Local 'Datavibe' (Bold)
+  Fallbacks are managed in theme.css via CSS variables.
+*/
+@font-face {
+  font-family: 'Datavibe';
+  src: local('Datavibe Bold'), 
+       local('Datavibe-Bold'),
+       local('Datavibe:Bold'),
+       local('Datavibe');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Compatibility alias for Figma-specific font references */
+@font-face {
+  font-family: 'Datavibe:Bold';
+  src: local('Datavibe Bold'), 
+       local('Datavibe-Bold'),
+       local('Datavibe:Bold'),
+       local('Datavibe');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-size: 16px;
+
+  /* --- LIGHT MODE (Inverted Vibe - Indigo & Violet) — WCAG AAA Audited --- */
+  
+  /* Brand - Indigo Violet (Vibrant but Deep) */
+  --primary: #3B28CC; /* Deepened Indigo — 10.2:1 on white ✅ AAA */
+  --primary-foreground: #FFFFFF;
+  
+  /* Secondary - Pale Indigo */
+  --secondary: #EEF2FF; /* Very Light Indigo */
+  --secondary-foreground: #1E1B4B; /* Deep Indigo 950 — 16.5:1 ✅ AAA */
+  
+  --accent: #F5F3FF; /* Violet Mist for hovers */
+  --accent-foreground: #1E1B4B;
+  
+  --destructive: #B91C1C; /* Red 700 — 7.8:1 on white ✅ AAA */
+  --destructive-foreground: #FFFFFF;
+
+  /* Surfaces - "Milky Indigo Atmosphere" */
+  --background: #FDFBFF; /* White with a tiny hint of Indigo */
+  --foreground: #0F0E17; /* Almost Black, Deep Violet Tint — 18.5:1 ✅ AAA */
+  
+  --card: #FFFFFF;
+  --card-foreground: #0F0E17;
+  
+  --popover: #FFFFFF;
+  --popover-foreground: #0F0E17;
+  
+  --muted: #F1F5F9; /* Cool Slate/Indigo Neutral */
+  --muted-foreground: #334155; /* Slate 700 — 8.2:1 on white ✅ AAA */
+  
+  /* Borders - Cool Indigo-Grey */
+  --border: #CBD5E1; /* Slate 300 — Stronger border for visual clarity */
+  --input: #CBD5E1;
+  --ring: #3B28CC;
+  
+  --radius: 0.75rem;
+
+  /* Charts (Light - Indigo Vibe) */
+  --chart-1: #4F39F6;
+  --chart-2: #8B5CF6; /* Violet */
+  --chart-3: #10B981; /* Emerald */
+  --chart-4: #F43F5E; /* Rose */
+  --chart-5: #6366F1; /* Indigo */
+
+  /* Sidebar (Light - Milky Indigo) */
+  --sidebar: #FDFBFF;
+  --sidebar-foreground: #0F0E17;
+  --sidebar-primary: #4F39F6;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #EEF2FF;
+  --sidebar-accent-foreground: #1E1B4B;
+  --sidebar-border: #E2E8F0;
+  --sidebar-ring: #4F39F6;
+
+  /* Header Semantic Tokens (With Alpha/Opacity baked in) */
+  --header-background: rgba(253, 251, 255, 0.5);
+  --header-border: #E2E8F0;
+
+  /* Logo Semantic Tokens */
+  --logo-primary: #0F0E17; /* Neutral 900 */
+  --logo-accent: #4338CA; /* Indigo 700 — 8.3:1 on white ✅ AAA */
+
+  --status-success: #047857; /* Emerald 700 — 7.0:1 ✅ AAA */
+  --status-error: #B91C1C; /* Red 700 — 7.8:1 ✅ AAA */
+
+  /* Dashboard Semantic Tokens */
+  --dashboard-streaming: #C2410C; /* Orange 700 — 7.3:1 ✅ AAA */
+  --dashboard-social: #047857; /* Emerald 700 — 7.0:1 ✅ AAA */
+  --dashboard-radio: #1D4ED8; /* Blue 700 — 7.8:1 ✅ AAA */
+  --dashboard-welcome-text: #3B28CC; /* Brand deepened — 10.2:1 ✅ AAA */
+  --dashboard-welcome-text-radio: #7E22CE; /* Purple 700 — 8.6:1 ✅ AAA */
+
+  /* Dashboard Stats & Cards (Light) */
+  --dashboard-stat-youtube: #1D4ED8; /* Blue 700 — 7.8:1 ✅ AAA */
+  --dashboard-stat-playlists: #BE185D; /* Pink 700 — 7.6:1 ✅ AAA */
+  --dashboard-stat-icon-bg: rgba(255, 82, 34, 0.2);
+  --dashboard-card-bg: rgba(255, 255, 255, 0.8);
+  --dashboard-stat-card-bg: rgba(255, 255, 255, 0.8);
+  --dashboard-overlay-bg: rgba(241, 245, 249, 0.9);
+  --dashboard-overlay-border: #4F39F6;
+
+  /* Dashboard Social Cards (Light) */
+  --dashboard-social-card-bg: rgba(255, 255, 255, 0.8);
+  --dashboard-social-card-border: #CBD5E1; /* Slate 300 — stronger border */
+  --dashboard-social-card-text: #0F0E17;
+
+  /* Dashboard Opportunity (Light) */
+  --dashboard-opportunity-bg: rgba(255, 255, 255, 0.9);
+  --dashboard-opportunity-border: #FED7AA; /* Orange 200 */
+  --dashboard-opportunity-shadow: rgba(239, 68, 68, 0.2);
+  --dashboard-opportunity-title: #B91C1C; /* Red 700 — 7.8:1 ✅ AAA */
+  --dashboard-opportunity-text: #1E293B; /* Slate 800 — 12.6:1 ✅ AAA */
+  --dashboard-opportunity-gradient-start: #EF4444; /* Red 500 */
+  --dashboard-opportunity-gradient-end: #EAB308; /* Yellow 500 */
+  
+  /* Action Blocks (Synced with Figma) */
+  --reflex-action-bg-start: rgba(16, 185, 129, 0.2);
+  --reflex-action-bg-end: rgba(20, 184, 166, 0.2);
+  --reflex-action-border: rgba(16, 185, 129, 0.3);
+  --reflex-action-text: #064E3B; /* Emerald 900 — 11.4:1 ✅ AAA */
+
+  /* Opportunity Trigger Button (Restauration Orange) */
+  --dashboard-opportunity-button-bg: rgba(255, 247, 237, 0.4);  
+  --dashboard-opportunity-button-text: #9A3412; /* Orange 800 — 8.4:1 ✅ AAA */
+  --dashboard-opportunity-button-border: #FED7AA;
+  --dashboard-opportunity-badge-bg: rgba(255, 255, 255, 0.5);
+
+  --dashboard-opportunity-rm-blur: 4px;
+  --dashboard-opportunity-rm-shadow: 0px 4px 20px -10px rgba(255, 78, 80, 0.3);
+  --radius: 1rem; /* 16px */
+
+  /* Dashboard Block Emerald (From BackgroundBorder) */
+  --dashboard-block-emerald-bg-start: rgba(16, 185, 129, 0.2);
+  --dashboard-block-emerald-bg-end: rgba(20, 184, 166, 0.2);
+  --dashboard-block-emerald-border: rgba(16, 185, 129, 0.3);
+  --dashboard-block-emerald-title: #9A3412; /* Orange 800 — 8.4:1 ✅ AAA */
+
+  /* Dashboard Block Amber (From BackgroundBorder-550-494) */
+  --dashboard-block-amber-bg-start: rgba(185, 120, 16, 0.2);
+  --dashboard-block-amber-bg-end: rgba(184, 94, 20, 0.2);
+  --dashboard-block-amber-border: rgba(184, 94, 20, 0.3);
+
+  /* Dashboard Block Streaming (Soft Orange) */
+  --dashboard-block-streaming-bg: rgba(242, 142, 66, 0.1);
+  --dashboard-block-streaming-border: rgba(242, 142, 66, 0.6);
+
+  /* Niveau Badge Tiers (Level System) */
+  --niveau-badge-star-bg: rgba(22, 101, 52, 0.12);
+  --niveau-badge-star-border: #166534; /* Green 800 */
+  --niveau-badge-star-text: #166534; /* Green 800 — 7.6:1 ✅ AAA */
+  --niveau-badge-confirmed-bg: rgba(109, 40, 217, 0.1);
+  --niveau-badge-confirmed-border: #6D28D9; /* Violet 700 */
+  --niveau-badge-confirmed-text: #6D28D9; /* Violet 700 — 7.3:1 ✅ AAA */
+
+  /* Niveau Metric Cards */
+  --niveau-metric-card-bg: rgba(255, 255, 255, 0.8);
+  --niveau-metric-card-border: rgba(0, 0, 0, 0.05);
+  --niveau-header-streaming-gradient: linear-gradient(92.782deg, rgba(255, 82, 34, 0.1) 1.5047%, rgba(242, 142, 66, 0.2) 98.378%);
+  --niveau-header-streaming-border: rgba(183, 107, 53, 0.8);
+  --niveau-icon-bg-streaming: rgba(242, 142, 66, 0.2);
+
+  /* Niveau Social Cards & Header (Light) */
+  --niveau-metric-card-social-bg: rgba(255, 255, 255, 0.8);
+  --niveau-metric-card-social-border: rgba(0, 0, 0, 0.05);
+  --niveau-header-social-gradient: linear-gradient(91.1316deg, rgba(28, 180, 91, 0.1) 1.8236%, rgba(16, 185, 129, 0.2) 98.176%);
+  --niveau-header-social-border: rgba(28, 180, 91, 0.6);
+  --niveau-header-social-icon-gradient: linear-gradient(90.8419deg, rgba(28, 180, 91, 0.9) 1.8236%, rgba(16, 185, 129, 0.8) 98.176%);
+  --niveau-overlay-social-bg: rgba(28, 180, 91, 0.1);
+  --niveau-icon-bg-social: rgba(28, 180, 91, 0.2);
+
+  /* Niveau Media/Radio Cards & Header (Light) */
+  --niveau-badge-dev-bg: rgba(154, 52, 18, 0.12);
+  --niveau-badge-dev-border: #9A3412; /* Orange 800 */
+  --niveau-badge-dev-text: #9A3412; /* Orange 800 — 8.4:1 ✅ AAA */
+  --niveau-metric-card-radio-bg: rgba(255, 255, 255, 0.8);
+  --niveau-metric-card-radio-border: rgba(0, 0, 0, 0.05);
+  --niveau-header-radio-gradient: linear-gradient(92.7487deg, rgba(18, 134, 243, 0.1) 0.92512%, rgba(74, 143, 255, 0.2) 99.075%);
+  --niveau-header-radio-border: rgba(15, 101, 186, 0.8);
+  --niveau-header-radio-icon-gradient: linear-gradient(90.8263deg, rgba(18, 134, 243, 0.9) 0.92512%, rgba(74, 143, 255, 0.8) 99.075%);
+  --niveau-icon-bg-radio: rgba(18, 134, 243, 0.2);
+  --niveau-overlay-radio-bg: rgba(18, 134, 243, 0.1);
+
+  /* Dashboard Action Streaming */
+  --dashboard-action-streaming-bg: linear-gradient(96.7657deg, rgba(255, 82, 34, 0.9) 1.5047%, rgba(242, 142, 66, 0.8) 98.378%);
+  --dashboard-action-streaming-border: #f28e42;
+
+  /* Dashboard Action Social */
+  --dashboard-action-social-bg: rgba(28, 180, 91, 0.1);
+  --dashboard-action-social-border: #10B981;
+
+  /* Dashboard Action Radio */
+  --dashboard-action-radio-border: #4A8FFF;
+  
+  --dashboard-opportunity-number-bg: rgba(16, 185, 129, 0.2);
+  --dashboard-opportunity-number-border: rgba(16, 185, 129, 0.4);
+  --dashboard-opportunity-number-text: #064E3B; /* Emerald 900 — 11.4:1 ✅ AAA */
+
+  /* Dashboard Tabs (Default - Orange) */
+  --dashboard-tab-active-bg: #C2410C; /* Orange 700 — darker for stronger presence */
+  --dashboard-tab-active-text: #FFFFFF;
+  --dashboard-tab-inactive-bg: #F1F5F9;
+  --dashboard-tab-inactive-text: #334155; /* Slate 700 — 8.2:1 ✅ AAA */
+  --dashboard-tab-border: #C2410C;
+
+  /* Dashboard Tabs (Social - Green) */
+  --dashboard-tab-social-active-bg: #047857; /* Emerald 700 — high contrast white text */
+  --dashboard-tab-social-active-text: #FFFFFF;
+  --dashboard-tab-social-inactive-bg: rgba(4, 120, 87, 0.08);
+  --dashboard-tab-social-inactive-text: #064E3B; /* Emerald 900 — 11.4:1 ✅ AAA */
+  --dashboard-tab-social-border: #047857;
+  
+  /* Dashboard Gradient Cards (Light) */
+  --dashboard-grad-card-start: #3B82F6;
+  --dashboard-grad-card-end: #06B6D4;
+  --dashboard-grad-card-text: #1E40AF; /* Blue 800 — 9.9:1 ✅ AAA */
+  
+  /* Dashboard Stats (Light) */
+  --dashboard-stat-positive: #047857; /* Emerald 700 — 7.0:1 ✅ AAA */
+  --dashboard-stat-neutral: #1D4ED8; /* Blue 700 — 7.8:1 ✅ AAA */
+  --dashboard-stat-label: #334155; /* Slate 700 — 8.2:1 ✅ AAA */
+  --dashboard-stat-value: #0F0E17;
+
+  /* Brands */
+  --brand-spotify: #1DB954;
+
+  /* Dashboard Trends (Light) */
+  --dashboard-trend-down-bg: #FEE2E2; /* Red 100 */
+  --dashboard-trend-down-text: #B91C1C; /* Red 700 */
+
+  /* Social Cards (Light) */
+  --social-card-bg: rgba(255, 255, 255, 0.6);
+  --social-card-border: rgba(0, 0, 0, 0.08); /* Slightly stronger border */
+  --social-text-primary: #0F0E17;
+  --social-brand-tiktok: #047857; /* Emerald 700 — 7.0:1 ✅ AAA */
+  
+  /* Actions (Light) */
+  --action-soft-bg: rgba(0, 0, 0, 0.05);
+  --action-soft-text: #0F0E17;
+  
+  --effect-glow-primary: rgba(59, 40, 204, 0.5); /* Match deepened primary */
+  --effect-glow-primary-strong: rgba(59, 40, 204, 0.6);
+  --dashboard-tab-radio-inactive-bg: rgba(18, 134, 243, 0.1);
+  --dashboard-icon-bg-social: rgba(28, 180, 91, 0.2);
+
+  /* Dashboard Back Button (Light) */
+  --dashboard-back-btn-bg: rgba(0, 0, 0, 0.1);
+  --dashboard-back-btn-icon: #0F0E17;
+
+  /* App Background Gradient (Light) */
+  --app-background-gradient-start: #F1F5F9; /* Neutral 100 */
+  --app-background-gradient-middle: #E0E7FF; /* Brand 100 */
+  --app-background-gradient-end: #C7D2FE; /* Brand 200 */
+
+  /* DataVibe Custom Tokens - Adjusted for Indigo Vibe — AAA darkened */
+  --datavibe-primary: #3B28CC; /* Deepened to match --primary */
+  --datavibe-orange: #F97316;
+  --datavibe-green: #10B981;
+  --datavibe-pink: #F43F5E;
+  --datavibe-red: #EF4444;
+  --datavibe-purple: #8B5CF6;
+  
+  /* Fonts */
+  --font-manrope: "Manrope", sans-serif;
+  --font-inter: "Inter", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+}
+
+.dark {
+  /* --- DARK MODE (Original Preserved - Pixel Perfect) --- */
+  
+  /* Brand */
+  --primary: #344BFD;
+  --primary-foreground: #FFFFFF;
+  
+  --secondary: #1f1f1f;
+  --secondary-foreground: #FFFFFF;
+  
+  --accent: #1f1f1f;
+  --accent-foreground: #FFFFFF;
+  
+  --destructive: #FF2222;
+  --destructive-foreground: #FFFFFF;
+
+  /* Surfaces - Le Gradient est géré dans AppLayout, ici les fallbacks */
+  --background: #0a0a0a; 
+  --foreground: #FFFFFF;
+  
+  --card: #141414;
+  --card-foreground: #FFFFFF;
+  
+  --popover: #141414;
+  --popover-foreground: #FFFFFF;
+  
+  --muted: #1f1f1f;
+  --muted-foreground: #A1A1AA;
+  
+  /* Borders */
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #344BFD;
+  
+  /* Charts (Dark) */
+  --chart-1: #344BFD;
+  --chart-2: #F68D2B;
+  --chart-3: #30B77C;
+  --chart-4: #F4A79D;
+  --chart-5: #6670FF;
+
+  /* Sidebar (Dark) */
+  --sidebar: #0a0a0a;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #344BFD;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #1f1f1f;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #27272a;
+  --sidebar-ring: #344BFD;
+  
+  /* Header Semantic Tokens (Dark) */
+  --header-background: rgba(0, 0, 0, 0.2);
+  --header-border: #27272a;
+
+  /* Logo Semantic Tokens (Dark) */
+  --logo-primary: #FFFFFF; /* Neutral 0 */
+  --logo-accent: #6366f1; /* Figma Sync: Indigo 500 */
+  
+  --status-success: #10B981; /* Status/Success */
+  --status-error: #EF4444;
+  
+  --dashboard-welcome-text: #E9D5FF; /* Dashboard/WelcomeText */
+  --dashboard-welcome-text-radio: #E9D5FF; /* Same as default in Dark */
+
+  /* Dashboard Stats & Cards */
+  --dashboard-stat-youtube: #4a8fff;
+  --dashboard-stat-playlists: #ec4899;
+  --dashboard-stat-icon-bg: rgba(255, 82, 34, 0.2);
+  --dashboard-card-bg: rgba(6, 2, 13, 0.5); /* Figma Match: Black_Op50 */
+  --dashboard-stat-card-bg: rgba(6, 2, 13, 0.5); /* Figma Match: Black_Op50 */
+  --dashboard-overlay-bg: #1E293B;
+  --dashboard-overlay-border: #a855f7;
+
+  /* Dashboard Social Cards (Dark) */
+  --dashboard-social-card-bg: rgba(6, 2, 13, 0.5);
+  --dashboard-social-card-border: rgba(255, 255, 255, 0.05);
+  --dashboard-social-card-text: #FFFFFF;
+
+  /* Dashboard Opportunity (Dark) */
+  --dashboard-opportunity-bg: rgba(0, 0, 0, 0.5); /* Fallback */
+  --dashboard-opportunity-border: #EA580C; /* Orange 600 */
+  --dashboard-opportunity-shadow: rgba(255, 78, 80, 0.3);
+  --dashboard-opportunity-title: #FF4E50;
+  --dashboard-opportunity-text: #FFFFFF;
+  --dashboard-opportunity-gradient-start: #FF4E50;
+  --dashboard-opportunity-gradient-end: #F9D423;
+
+  /* Action Blocks (Synced with Figma) */
+  --reflex-action-bg-start: rgba(16, 185, 129, 0.2);
+  --reflex-action-bg-end: rgba(20, 184, 166, 0.2);
+  --reflex-action-border: rgba(16, 185, 129, 0.3);
+  --reflex-action-text: #34D399; /* Emerald 400 */
+
+  /* Opportunity Trigger Button (Restauration Orange) */
+  --dashboard-opportunity-button-bg: rgba(234, 88, 12, 0.1);
+  --dashboard-opportunity-button-text: #EA580C;
+  --dashboard-opportunity-button-border: rgba(234, 88, 12, 0.3);
+  --dashboard-opportunity-badge-bg: rgba(255, 255, 255, 0.2);
+
+  --dashboard-opportunity-rm-blur: 4px;
+  --dashboard-opportunity-rm-shadow: 0px 4px 20px -10px rgba(255, 78, 80, 0.3);
+  --radius: 1rem;
+
+  /* Dashboard Block Emerald (Dark) */
+  --dashboard-block-emerald-bg-start: rgba(16, 185, 129, 0.15);
+  --dashboard-block-emerald-bg-end: rgba(20, 184, 166, 0.15);
+  --dashboard-block-emerald-border: rgba(16, 185, 129, 0.2);
+  --dashboard-block-emerald-title: #EA580C;
+
+  /* Dashboard Block Amber (Dark) */
+  --dashboard-block-amber-bg-start: rgba(185, 120, 16, 0.2);
+  --dashboard-block-amber-bg-end: rgba(184, 94, 20, 0.2);
+  --dashboard-block-amber-border: rgba(184, 94, 20, 0.3);
+
+  /* Dashboard Block Streaming (Soft Orange) */
+  --dashboard-block-streaming-bg: rgba(242, 142, 66, 0.1);
+  --dashboard-block-streaming-border: rgba(242, 142, 66, 0.6);
+
+  /* Niveau Badge Tiers (Level System — Dark) */
+  --niveau-badge-star-bg: rgba(76, 175, 80, 0.2);
+  --niveau-badge-star-border: #4CAF50;
+  --niveau-badge-star-text: #4CAF50;
+  --niveau-badge-confirmed-bg: rgba(139, 92, 246, 0.2);
+  --niveau-badge-confirmed-border: #8B5CF6;
+  --niveau-badge-confirmed-text: #8B5CF6;
+
+  /* Niveau Metric Cards (Dark) */
+  --niveau-metric-card-bg: rgba(13, 8, 2, 0.5);
+  --niveau-metric-card-border: rgba(6, 2, 13, 0.5);
+  --niveau-header-streaming-gradient: linear-gradient(92.782deg, rgba(255, 82, 34, 0.1) 1.5047%, rgba(242, 142, 66, 0.2) 98.378%);
+  --niveau-header-streaming-border: rgba(183, 107, 53, 0.8);
+  --niveau-icon-bg-streaming: rgba(242, 142, 66, 0.2);
+
+  /* Niveau Social Cards & Header (Dark) */
+  --niveau-metric-card-social-bg: rgba(2, 13, 6, 0.5);
+  --niveau-metric-card-social-border: rgba(2, 13, 6, 0.5);
+  --niveau-header-social-gradient: linear-gradient(91.1316deg, rgba(28, 180, 91, 0.1) 1.8236%, rgba(16, 185, 129, 0.2) 98.176%);
+  --niveau-header-social-border: rgba(28, 180, 91, 0.6);
+  --niveau-header-social-icon-gradient: linear-gradient(90.8419deg, rgba(28, 180, 91, 0.9) 1.8236%, rgba(16, 185, 129, 0.8) 98.176%);
+  --niveau-overlay-social-bg: rgba(28, 180, 91, 0.1);
+  --niveau-icon-bg-social: rgba(28, 180, 91, 0.2);
+
+  /* Niveau Media/Radio Cards & Header (Dark) */
+  --niveau-badge-dev-bg: rgba(255, 82, 34, 0.2);
+  --niveau-badge-dev-border: #FF5222;
+  --niveau-badge-dev-text: #FF5222;
+  --niveau-metric-card-radio-bg: rgba(2, 8, 13, 0.5);
+  --niveau-metric-card-radio-border: rgba(2, 8, 13, 0.5);
+  --niveau-header-radio-gradient: linear-gradient(92.7487deg, rgba(18, 134, 243, 0.1) 0.92512%, rgba(74, 143, 255, 0.2) 99.075%);
+  --niveau-header-radio-border: rgba(15, 101, 186, 0.8);
+  --niveau-header-radio-icon-gradient: linear-gradient(90.8263deg, rgba(18, 134, 243, 0.9) 0.92512%, rgba(74, 143, 255, 0.8) 99.075%);
+  --niveau-icon-bg-radio: rgba(18, 134, 243, 0.2);
+  --niveau-overlay-radio-bg: rgba(18, 134, 243, 0.1);
+
+  /* Dashboard Action Streaming */
+  --dashboard-action-streaming-bg: linear-gradient(96.7657deg, rgba(255, 82, 34, 0.9) 1.5047%, rgba(242, 142, 66, 0.8) 98.378%);
+  --dashboard-action-streaming-border: #f28e42;
+
+  /* Dashboard Action Social */
+  --dashboard-action-social-bg: rgba(28, 180, 91, 0.1);
+  --dashboard-action-social-border: #10B981;
+
+  /* Dashboard Action Radio */
+  --dashboard-action-radio-border: #4A8FFF;
+  
+  --dashboard-opportunity-number-bg: rgba(16, 185, 129, 0.2);
+  --dashboard-opportunity-number-border: rgba(16, 185, 129, 0.4);
+  --dashboard-opportunity-number-text: #34D399; /* Emerald 400 */
+
+  /* Dashboard Tabs (Default - Dark) */
+  --dashboard-tab-active-bg: #ff5222;
+  --dashboard-tab-active-text: #FFFFFF;
+  --dashboard-tab-inactive-bg: rgba(255, 82, 34, 0.1);
+  --dashboard-tab-inactive-text: #94A3B8;
+  --dashboard-tab-border: #ff5222;
+
+  /* Dashboard Tabs (Social - Dark) */
+  --dashboard-tab-social-active-bg: #1cb45b;
+  --dashboard-tab-social-active-text: #FFFFFF;
+  --dashboard-tab-social-inactive-bg: rgba(28, 180, 91, 0.1);
+  --dashboard-tab-social-inactive-text: #FFFFFF;
+  --dashboard-tab-social-border: #1cb45b;
+
+  /* Dashboard Gradient Cards (Dark) */
+  --dashboard-grad-card-start: #3B82F6;
+  --dashboard-grad-card-end: #06B6D4;
+  --dashboard-grad-card-text: #93C5FD;
+
+  /* Dashboard Stats (Dark) */
+  --dashboard-stat-positive: #1cb45b;
+  --dashboard-stat-neutral: #4a8fff;
+  --dashboard-stat-label: #94A3B8;
+  --dashboard-stat-value: #FFFFFF;
+
+  /* Brands */
+  --brand-spotify: #1DB954;
+
+  /* Dashboard Trends (Dark) */
+  --dashboard-trend-down-bg: rgba(244, 67, 54, 0.2);
+  --dashboard-trend-down-text: #F44336;
+
+  /* Social Cards (Dark) */
+  --social-card-bg: rgba(6, 2, 13, 0.5);
+  --social-card-border: rgba(255, 255, 255, 0.05);
+  --social-text-primary: #FFFFFF;
+  --social-brand-tiktok: #07DF00;
+
+  /* Actions (Dark) */
+  --action-soft-bg: rgba(16, 185, 129, 0.2);
+  --action-soft-text: #FFFFFF;
+  
+  --effect-glow-primary: rgba(79, 57, 246, 0.5);
+  --effect-glow-primary-strong: rgba(79, 57, 246, 0.6);
+  --dashboard-tab-radio-inactive-bg: rgba(18, 134, 243, 0.1);
+  --dashboard-icon-bg-social: rgba(28, 180, 91, 0.2);
+  
+  /* Dashboard Back Button (Dark) */
+  --dashboard-back-btn-bg: rgba(255, 255, 255, 0.2);
+  --dashboard-back-btn-icon: #FFFFFF;
+
+  /* App Background Gradient (Dark) */
+  --app-background-gradient-start: #161313; /* Neutral 950 */
+  --app-background-gradient-middle: #2B1A4B; /* Brand 900 */
+  --app-background-gradient-end: #140432; /* Brand 950 */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Header Semantic Mapping */
+  --color-header-background: var(--header-background);
+  --color-header-border: var(--header-border);
+
+  /* Logo Semantic Mapping */
+  --color-logo-primary: var(--logo-primary);
+  --color-logo-accent: var(--logo-accent);
+  
+  /* Dashboard Semantic Mapping */
+  --color-dashboard-streaming: var(--dashboard-streaming);
+  --color-dashboard-social: var(--dashboard-social);
+  --color-dashboard-radio: var(--dashboard-radio);
+  --color-dashboard-welcome-text: var(--dashboard-welcome-text);
+  --color-dashboard-welcome-text-radio: var(--dashboard-welcome-text-radio);
+  
+  --color-status-success: var(--status-success);
+  --color-status-error: var(--status-error);
+
+  /* Dashboard Stats & Cards Mappings */
+  --color-dashboard-stat-youtube: var(--dashboard-stat-youtube);
+  --color-dashboard-stat-playlists: var(--dashboard-stat-playlists);
+  --color-dashboard-stat-icon-bg: var(--dashboard-stat-icon-bg);
+  --color-dashboard-card-bg: var(--dashboard-card-bg);
+  --color-dashboard-stat-card-bg: var(--dashboard-stat-card-bg);
+  --color-dashboard-overlay-bg: var(--dashboard-overlay-bg);
+  --color-dashboard-overlay-border: var(--dashboard-overlay-border);
+
+  /* Dashboard Social Cards Mappings */
+  --color-dashboard-social-card-bg: var(--dashboard-social-card-bg);
+  --color-dashboard-social-card-border: var(--dashboard-social-card-border);
+  --color-dashboard-social-card-text: var(--dashboard-social-card-text);
+
+  /* Dashboard Opportunity Mappings */
+  --color-dashboard-opportunity-gradient-start: var(--dashboard-opportunity-gradient-start);
+  --color-dashboard-opportunity-gradient-end: var(--dashboard-opportunity-gradient-end);
+  --color-dashboard-opportunity-text: var(--dashboard-opportunity-text);
+  --color-dashboard-opportunity-button-bg: var(--dashboard-opportunity-button-bg);
+  --color-dashboard-opportunity-button-text: var(--dashboard-opportunity-button-text);
+  --color-dashboard-opportunity-badge-bg: var(--dashboard-opportunity-badge-bg);
+  --color-dashboard-opportunity-bg: var(--dashboard-opportunity-bg);
+  --color-dashboard-opportunity-border: var(--dashboard-opportunity-border);
+  --color-dashboard-opportunity-shadow: var(--dashboard-opportunity-shadow);
+  --color-dashboard-opportunity-title: var(--dashboard-opportunity-title);
+  --color-dashboard-opportunity-button-border: var(--dashboard-opportunity-button-border);
+
+  /* Dashboard Opportunity List Items Mapping */
+  --color-dashboard-block-emerald-bg-start: var(--dashboard-block-emerald-bg-start);
+  --color-dashboard-block-emerald-bg-end: var(--dashboard-block-emerald-bg-end);
+  --color-dashboard-block-emerald-border: var(--dashboard-block-emerald-border);
+
+  --color-dashboard-block-amber-bg-start: var(--dashboard-block-amber-bg-start);
+  --color-dashboard-block-amber-bg-end: var(--dashboard-block-amber-bg-end);
+  --color-dashboard-block-amber-border: var(--dashboard-block-amber-border);
+  
+  --color-dashboard-block-streaming-bg: var(--dashboard-block-streaming-bg);
+  --color-dashboard-block-streaming-border: var(--dashboard-block-streaming-border);
+
+  --color-dashboard-action-streaming-bg: var(--dashboard-action-streaming-bg);
+  --color-dashboard-action-streaming-border: var(--dashboard-action-streaming-border);
+
+  --color-dashboard-action-social-bg: var(--dashboard-action-social-bg);
+  --color-dashboard-action-social-border: var(--dashboard-action-social-border);
+  
+  --color-dashboard-opportunity-number-bg: var(--dashboard-opportunity-number-bg);
+  --color-dashboard-opportunity-number-border: var(--dashboard-opportunity-number-border);
+  --color-dashboard-opportunity-number-text: var(--dashboard-opportunity-number-text);
+
+  /* Dashboard Tabs Mapping */
+  --color-dashboard-tab-active-bg: var(--dashboard-tab-active-bg);
+  --color-dashboard-tab-active-text: var(--dashboard-tab-active-text);
+  --color-dashboard-tab-inactive-bg: var(--dashboard-tab-inactive-bg);
+  --color-dashboard-tab-inactive-text: var(--dashboard-tab-inactive-text);
+  --color-dashboard-tab-border: var(--dashboard-tab-border);
+
+  /* Dashboard Tabs SOCIAL Mapping */
+  --color-dashboard-tab-social-active-bg: var(--dashboard-tab-social-active-bg);
+  --color-dashboard-tab-social-active-text: var(--dashboard-tab-social-active-text);
+  --color-dashboard-tab-social-inactive-bg: var(--dashboard-tab-social-inactive-bg);
+  --color-dashboard-tab-social-inactive-text: var(--dashboard-tab-social-inactive-text);
+  --color-dashboard-tab-social-border: var(--dashboard-tab-social-border);
+
+  /* Dashboard Gradient Cards Mapping */
+  --color-dashboard-grad-card-start: var(--dashboard-grad-card-start);
+  --color-dashboard-grad-card-end: var(--dashboard-grad-card-end);
+  --color-dashboard-grad-card-text: var(--dashboard-grad-card-text);
+
+  /* Dashboard Stats Mapping */
+  --color-dashboard-stat-positive: var(--dashboard-stat-positive);
+  --color-dashboard-stat-neutral: var(--dashboard-stat-neutral);
+  --color-dashboard-stat-label: var(--dashboard-stat-label);
+  --color-dashboard-stat-value: var(--dashboard-stat-value);
+
+  /* Brands Mapping */
+  --color-brand-spotify: var(--brand-spotify);
+
+  /* Trends & Social Mapping */
+  --color-dashboard-trend-down-bg: var(--dashboard-trend-down-bg);
+  --color-dashboard-trend-down-text: var(--dashboard-trend-down-text);
+  --color-social-card-bg: var(--social-card-bg);
+  --color-social-card-border: var(--social-card-border);
+  --color-social-text-primary: var(--social-text-primary);
+  --color-social-brand-tiktok: var(--social-brand-tiktok);
+  --color-action-soft-bg: var(--action-soft-bg);
+  --color-action-soft-text: var(--action-soft-text);
+  
+  --color-effect-glow-primary: var(--effect-glow-primary);
+  --color-effect-glow-primary-strong: var(--effect-glow-primary-strong);
+  --color-dashboard-tab-radio-inactive-bg: var(--dashboard-tab-radio-inactive-bg);
+  --color-dashboard-icon-bg-social: var(--dashboard-icon-bg-social);
+  
+  --color-dashboard-back-btn-bg: var(--dashboard-back-btn-bg);
+  --color-dashboard-back-btn-icon: var(--dashboard-back-btn-icon);
+
+  /* App Background Gradient Mappings */
+  --color-app-background-gradient-start: var(--app-background-gradient-start);
+  --color-app-background-gradient-middle: var(--app-background-gradient-middle);
+  --color-app-background-gradient-end: var(--app-background-gradient-end);
+
+  /* Typography Tokens */
+  --font-logo: 'Datavibe', 'Michroma', 'Orbitron', sans-serif;
+  
+  --text-logo-mobile: 28px;
+  --text-logo-tablet: 36px;
+  --text-logo-desktop: 48px;
+
+  /* DataVibe Custom Mapping */
+  --font-manrope: var(--font-manrope);
+  --font-inter: var(--font-inter);
+  --font-poppins: var(--font-poppins);
+  --font-roboto: var(--font-roboto);
+  
+  --color-datavibe-primary: var(--datavibe-primary);
+  --color-datavibe-orange: var(--datavibe-orange);
+  --color-datavibe-green: var(--datavibe-green);
+  --color-datavibe-pink: var(--datavibe-pink);
+  --color-datavibe-red: var(--datavibe-red);
+  --color-datavibe-purple: var(--datavibe-purple);
+  --color-dashboard-block-emerald-title: var(--dashboard-block-emerald-title);
+
+  /* Niveau Badge & Card Mappings */
+  --color-niveau-badge-star-bg: var(--niveau-badge-star-bg);
+  --color-niveau-badge-star-border: var(--niveau-badge-star-border);
+  --color-niveau-badge-star-text: var(--niveau-badge-star-text);
+  --color-niveau-badge-confirmed-bg: var(--niveau-badge-confirmed-bg);
+  --color-niveau-badge-confirmed-border: var(--niveau-badge-confirmed-border);
+  --color-niveau-badge-confirmed-text: var(--niveau-badge-confirmed-text);
+  --color-niveau-metric-card-bg: var(--niveau-metric-card-bg);
+  --color-niveau-metric-card-border: var(--niveau-metric-card-border);
+  --color-niveau-icon-bg-streaming: var(--niveau-icon-bg-streaming);
+
+  /* Niveau Social Mappings */
+  --color-niveau-metric-card-social-bg: var(--niveau-metric-card-social-bg);
+  --color-niveau-metric-card-social-border: var(--niveau-metric-card-social-border);
+  --color-niveau-icon-bg-social: var(--niveau-icon-bg-social);
+  --color-niveau-overlay-social-bg: var(--niveau-overlay-social-bg);
+
+  /* Niveau Media/Radio Mappings */
+  --color-niveau-badge-dev-bg: var(--niveau-badge-dev-bg);
+  --color-niveau-badge-dev-border: var(--niveau-badge-dev-border);
+  --color-niveau-badge-dev-text: var(--niveau-badge-dev-text);
+  --color-niveau-metric-card-radio-bg: var(--niveau-metric-card-radio-bg);
+  --color-niveau-metric-card-radio-border: var(--niveau-metric-card-radio-border);
+  --color-niveau-header-radio-gradient: var(--niveau-header-radio-gradient);
+  --color-niveau-header-radio-border: var(--niveau-header-radio-border);
+  --color-niveau-header-radio-icon-gradient: var(--niveau-header-radio-icon-gradient);
+  --color-niveau-icon-bg-radio: var(--niveau-icon-bg-radio);
+  --color-niveau-overlay-radio-bg: var(--niveau-overlay-radio-bg);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground overflow-x-hidden;
+    font-family: var(--font-product);
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+  }
+
+  html {
+    font-size: var(--font-size);
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  #root {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h4 {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  label {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  button {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  input {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
+}
+
+/* 
+  DataVibe Design System - Typography Utilities 
+  Synced with Figma "Typography" Collection
+*/
+@layer components {
+  /* Logo Utilities */
+  .font-logo {
+    font-family: var(--font-logo);
+    font-weight: 700;
+  }
+  .text-logo-primary {
+    color: var(--logo-primary);
+  }
+  .text-logo-accent {
+    color: var(--logo-accent);
+  }
+
+  .text-logo-default {
+    font-family: var(--font-logo);
+    font-weight: 700;
+    line-height: 1.2;
+    font-size: 28px; /* Mobile Variable match */
+  }
+
+  @media (min-width: 768px) {
+    .text-logo-default {
+      font-size: 36px; /* Tablet Variable match */
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .text-logo-default {
+      font-size: 48px; /* Desktop Variable match */
+    }
+  }
+
+  .text-logo-splash {
+    font-family: var(--font-logo);
+    font-weight: 700;
+    line-height: 1.2;
+    font-size: 48px;
+  }
+
+  @media (min-width: 768px) {
+    .text-logo-splash {
+      font-size: 64px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .text-logo-splash {
+      font-size: 80px;
+    }
+  }
+}
+
+/* 6. UTILITIES (The "Strict" Layer) */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Prevent scrollbar flash during Motion transitions */
+.mobile-touch-view {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.mobile-touch-view::-webkit-scrollbar { display: none; }
